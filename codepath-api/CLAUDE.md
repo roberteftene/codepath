@@ -48,11 +48,34 @@ This is a Spring Boot 3.5.4 REST API application called "codepath-api" - a Duoli
 - **Java Version**: 21
 - **Lombok**: Enabled with annotation processing configured
 
+## Current Implementation Status
+
+### APIs Implemented
+- `GET /api/v1/lessons/{topic}` - Get lessons for a specific topic (java, python, etc.)
+
+### Security Configuration
+- **Spring Security disabled** for all routes during development (`SecurityConfig.java`)
+- **H2 Console accessible** at `/h2-console` with frame options disabled
+
+### Package Structure
+- `domain/` - JPA entities (User, Lesson, Question, Answer, UserProgress)
+- `dto/response/` - Response DTOs (LessonsForTopicResponse, LessonDto)  
+- `controller/` - REST controllers (LessonController)
+- `service/` - Business logic (LessonService)
+- `repo/` - JPA repositories (LessonRepository)
+- `config/` - Configuration classes (SecurityConfig)
+- `mapper/` - MapStruct mappers (LessonMapper)
+
+### Key Implementation Details
+- **Topic-based lessons**: Lessons filtered by `topic` column for language categorization
+- **Ordered lessons**: Repository method `findByTopicOrderByOrderIndex()` returns lessons in sequence
+- **Lombok properly configured**: Fixed annotation processor paths with explicit versions
+- **MapStruct integration**: Entity to DTO mapping configured
+
 ## Development Notes
 
 - The project uses Maven wrapper (`mvnw`), so always use `./mvnw` instead of `mvn`
-- Lombok is configured for reducing boilerplate code
+- Lombok is configured with explicit version (1.18.38) in annotation processor paths
 - Spring Boot DevTools enabled for hot reloading during development
 - JPA is set to `create-drop` mode for H2, showing SQL queries in logs
-- Controller package exists but is currently empty - controllers should be added here
 - Migration directory exists but no migrations present yet
